@@ -4,11 +4,13 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
 
+const INITIAL_COLOR = "#2c2c2c";
+
 // default settings
 canvas.width = 600;
 canvas.height = 600;
-ctx.strokeStyle = "#2c2c2c";
-ctx.fillStyle = "#2c2c2c"
+ctx.strokeStyle = INITIAL_COLOR;
+ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = 2.5;
 let painting = false;
 let filling = false;
@@ -57,11 +59,18 @@ function handleModeClick(){
     }
 }
 
+function handleCanvasClick(){
+    if(filling){
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+}
+
 if (canvas){
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting);
+    canvas.addEventListener("click", handleCanvasClick);
 }
 
 if (range){
